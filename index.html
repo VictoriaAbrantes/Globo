@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Victoria Abrantes — Estágio Globo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --blue: #2563FF;
+      --blue-light: #EAF0FF;
+      --blue-mid: #4F7BFF;
+      --dark: #0B0F1A;
+      --gray: #6B7280;
+      --light: #F7F8FC;
+      --white: #FFFFFF;
+      --accent: #FF4D6D;
+      --border: #E2E8F0;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--light);
+      color: var(--dark);
+      min-height: 100vh;
+    }
+
+    /* ── LAYOUT ── */
+    .page {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      grid-template-rows: auto 1fr auto;
+      min-height: 100vh;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      grid-row: 1 / -1;
+      background: var(--blue);
+      color: var(--white);
+      padding: 48px 28px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sidebar::before {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: -80px;
+      width: 260px; height: 260px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+    }
+    .sidebar::after {
+      content: '';
+      position: absolute;
+      top: 160px; right: -60px;
+      width: 180px; height: 180px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+    }
+
+    .avatar-wrap {
+      position: relative;
+      width: 120px; height: 120px;
+      margin: 0 auto;
+    }
+    .avatar-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -5px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.25);
+    }
+    .avatar-wrap img {
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      position: relative;
+      z-index: 1;
+      filter: grayscale(20%);
+    }
+    .avatar-placeholder {
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+      font-family: 'Syne', sans-serif;
+      font-size: 36px;
+      font-weight: 800;
+      color: white;
+      letter-spacing: -1px;
+    }
+
+    .sidebar-name {
+      text-align: center;
+    }
+    .sidebar-name h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      line-height: 1.2;
+    }
+    .sidebar-name p {
+      font-size: 13px;
+      opacity: 0.7;
+      margin-top: 4px;
+      font-weight: 300;
+    }
+
+    .sidebar-section {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .sidebar-label {
+      font-family: 'Syne', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      opacity: 0.55;
+      margin-bottom: 2px;
+    }
+    .sidebar-value {
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.5;
+      opacity: 0.92;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .tag {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-size: 12.5px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .tag::before {
+      content: '✦';
+      font-size: 9px;
+      opacity: 0.6;
+    }
+
+    .divider {
+      height: 1px;
+      background: rgba(255,255,255,0.15);
+    }
+
+    /* ── MAIN ── */
+    .main {
+      grid-column: 2;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      padding: 36px 48px 32px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .header-left h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--dark);
+      letter-spacing: -0.8px;
+      line-height: 1.1;
+    }
+    .header-left h2 span {
+      color: var(--blue);
+    }
+    .header-left p {
+      font-size: 13.5px;
+      color: var(--gray);
+      margin-top: 6px;
+      font-weight: 300;
+    }
+
+    .globo-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--blue-light);
+      border: 1px solid rgba(37,99,255,0.2);
+      border-radius: 10px;
+      padding: 10px 16px;
+    }
+    .globo-badge .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--blue);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+    .globo-badge span {
+      font-family: 'Syne', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--blue);
+      letter-spacing: 0.5px;
+    }
+
+    /* ── CONTENT GRID ── */
+    .content {
+      padding: 40px 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 24px;
+      flex: 1;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .card:hover {
+      box-shadow: 0 8px 32px rgba(37,99,255,0.08);
+      transform: translateY(-2px);
+    }
+
+    .card-number {
+      font-family: 'Syne', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--blue);
+      opacity: 0.6;
+    }
+    .card-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--dark);
+      line-height: 1.25;
+      letter-spacing: -0.3px;
+    }
+    .card-body {
+      font-size: 13.5px;
+      color: #4B5563;
+      line-height: 1.7;
+      font-weight: 300;
+      flex: 1;
+    }
+    .card-body p + p {
+      margin-top: 10px;
+    }
+
+    /* ── TIMELINE ── */
+    .timeline-section {
+      grid-column: 1 / -1;
+      background: var(--white);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      padding: 28px 32px;
+    }
+    .timeline-header {
+      font-family: 'Syne', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 24px;
+    }
+    .timeline-track {
+      display: flex;
+      align-items: flex-start;
+      position: relative;
+      gap: 0;
+    }
+    .timeline-track::before {
+      content: '';
+      position: absolute;
+      top: 18px;
+      left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--blue) 0%, var(--blue-mid) 60%, var(--border) 100%);
+      z-index: 0;
+    }
+    .tl-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      position: relative;
+      z-index: 1;
+    }
+    .tl-dot {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--white);
+      border: 2px solid var(--blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+    .tl-item.active .tl-dot {
+      background: var(--blue);
+      box-shadow: 0 0 0 4px rgba(37,99,255,0.15);
+    }
+    .tl-year {
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--dark);
+    }
+    .tl-desc {
+      font-size: 11.5px;
+      color: var(--gray);
+      text-align: center;
+      line-height: 1.4;
+      max-width: 90px;
+    }
+    .tl-item.active .tl-year {
+      color: var(--blue);
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      grid-column: 2;
+      padding: 16px 48px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer p {
+      font-size: 11.5px;
+      color: var(--gray);
+      font-weight: 300;
+    }
+    .footer-tag {
+      font-family: 'Syne', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--blue);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .sidebar        { animation: fadeUp 0.5s ease both; }
+    .header         { animation: fadeUp 0.5s 0.1s ease both; }
+    .card:nth-child(1) { animation: fadeUp 0.5s 0.2s ease both; }
+    .card:nth-child(2) { animation: fadeUp 0.5s 0.3s ease both; }
+    .card:nth-child(3) { animation: fadeUp 0.5s 0.4s ease both; }
+    .timeline-section  { animation: fadeUp 0.5s 0.5s ease both; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .page { grid-template-columns: 1fr; }
+      .sidebar { grid-row: auto; flex-direction: row; flex-wrap: wrap; padding: 32px 24px; gap: 20px; }
+      .avatar-wrap { width: 80px; height: 80px; margin: 0; }
+      .main { grid-column: 1; }
+      .header { padding: 24px; }
+      .content { padding: 24px; grid-template-columns: 1fr; }
+      .footer { grid-column: 1; padding: 16px 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="avatar-wrap">
+        <img src="https://github.com/VictoriaAbrantes/G/blob/main/eu.jpg?raw=true" alt="Victoria Abrantes" />
+      </div>
+
+      <div class="sidebar-name">
+        <h1>Victoria<br/>Abrantes</h1>
+        <p>27 anos</p>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="sidebar-section">
+        <p class="sidebar-label">Foco de atuação</p>
+        <p class="sidebar-value">Tecnologia e Inovação</p>
+      </div>
+
+      <div class="sidebar-section">
+        <p class="sidebar-label">Experiência Acadêmica</p>
+        <p class="sidebar-value">Análise e Desenvolvimento de Sistemas, UVA (2027)</p>
+        <p class="sidebar-value">Enfermagem, UNESA (2023)</p>
+        <p class="sidebar-value">Pós em Psiquiatria e Saúde Mental, FAVENI (2024)</p>
+      </div>
+
+      <div class="sidebar-section">
+        <p class="sidebar-label">Área atual</p>
+        <p class="sidebar-value">Enfermagem, Hemorio (CME)</p>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="sidebar-section">
+        <p class="sidebar-label">Idiomas</p>
+        <p class="sidebar-value">Português (Nativo)</p>
+        <p class="sidebar-value">Inglês (Conversacional)</p>
+      </div>
+
+      <div class="sidebar-section">
+        <p class="sidebar-label">Competências</p>
+        <div class="tag-list">
+          <div class="tag">Organização de processos</div>
+          <div class="tag">Comunicação clara</div>
+          <div class="tag">Aprendizado rápido</div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- HEADER -->
+    <header class="header">
+      <div class="header-left">
+       <p>Tecnologia &amp; Inovação · Globo 2026</p>
+      </div>
+      <div class="globo-badge">
+        <div class="dot"></div>
+        <span>🎯 Globo 2026</span>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+      <div class="content">
+
+        <!-- Card 01 -->
+        <div class="card">
+          <h3 class="card-title">Minha trajetória</h3>
+          <p> </p>
+          <div class="card-body">
+            <p>Sou enfermeira no Hemorio e estudante de Análise e Desenvolvimento de Sistemas pela UVA.</p>
+            <p>Minha trajetória foi construída em ambientes de alta responsabilidade, onde aprendi a liderar equipes, organizar processos e tomar decisões com rapidez e cuidado.</p>
+            <p>Conciliei formação, trabalho e maternidade, o que fortaleceu minha disciplina, resiliência e senso de prioridade.</p>
+          </div>
+        </div>
+
+        <!-- Card 02 -->
+        <div class="card">
+          <h3 class="card-title">Minha motivação e contribuição para a Globo</h3>
+          <div class="card-body">
+            <p>Me impulsiona aprender, entender problemas reais e transformar necessidades em soluções úteis. Foi isso que me aproximou da tecnologia.</p>
+            <p>Vejo a Globo como uma empresa com uma conexão profunda com a sociedade brasileira, capaz de influenciar, informar e entreter milhões de pessoas.</p>
+            <p>Me identifico com ambientes diversos, colaborativos e em constante evolução.</p>
+          </div>
+        </div>
+
+        <!-- Card 03 -->
+        <div class="card">
+          <h3 class="card-title">Conexão da minha trajetória com a nova área</h3>
+          <div class="card-body">
+            <p>Meu interesse por desenvolvimento vem da curiosidade e da vontade de construir soluções escaláveis.</p>
+            <p>Hoje fortaleço minha base técnica com estudos e projetos práticos. Pela minha vivência profissional, posso contribuir com organização, comunicação clara, responsabilidade com a entrega e olhar atento para o usuário.</p>
+            <p>Na prática, me imagino ajudando o time a entender necessidades, aprender rápido com o contexto da área e evoluir soluções confiáveis e úteis para os clientes.</p>
+          </div>
+        </div>
+
+        <!-- Timeline -->
+        <div class="timeline-section">
+          <p class="timeline-header">Linha do tempo</p>
+          <div class="timeline-track">
+
+            <div class="tl-item">
+              <img src="MAT.jpg" alt="Maternidade">
+              <span class="tl-year">2018</span>
+              <span class="tl-desc">Maternidade</span>
+            </div>
+
+            <div class="tl-item">
+              <div class="tl-dot">🎓</div>
+              <span class="tl-year">2019</span>
+              <span class="tl-desc">Graduação Enfermagem</span>
+            </div>
+
+            <div class="tl-item">
+              <div class="tl-dot">🏥</div>
+              <span class="tl-year">2024</span>
+              <span class="tl-desc">Hemorio CME</span>
+            </div>
+
+            <div class="tl-item">
+              <div class="tl-dot">💻</div>
+              <span class="tl-year">2025</span>
+              <span class="tl-desc">Curso ADS — UVA</span>
+            </div>
+
+            <div class="tl-item active">
+              <div class="tl-dot">🎯</div>
+              <span class="tl-year">2026</span>
+              <span class="tl-desc">Estagiária Globo</span>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <p>Victoria Abrantes · Rio de Janeiro, RJ</p>
+      <span class="footer-tag">Tecnologia &amp; Inovação</span>
+    </footer>
+
+  </div>
+</body>
+</html>
